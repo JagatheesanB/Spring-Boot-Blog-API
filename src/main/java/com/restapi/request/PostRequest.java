@@ -2,6 +2,10 @@ package com.restapi.request;
 
 import lombok.*;
 
+import javax.persistence.Column;
+import javax.persistence.Lob;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -14,16 +18,16 @@ public class PostRequest {
 
     private Long id;
 
-    @NotEmpty
-    @Size(min = 2, message = "Title should have at least 2 characters")
+
+    @Size(min = 5, message = "Title should have at least 5 characters")
     private String title;
 
-    @NotEmpty
-    @Size(min = 2, message = "Title should have at least 2 characters")
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    @NotEmpty
-    private String user_id;
+    private Long user_id;
+
+    private String role;
 
 
 }

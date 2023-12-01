@@ -1,6 +1,7 @@
 package com.restapi.service;
 
 import com.restapi.dto.CommentDto;
+import com.restapi.exception.common.ResourceNotFoundException;
 import com.restapi.model.Comment;
 import com.restapi.repository.CommentRepository;
 import com.restapi.request.CommentRequest;
@@ -9,6 +10,7 @@ import com.restapi.response.common.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,17 @@ public class CommentService {
         return commentDto.mapToCommentResponse(comments);
     }
 
+    public CommentResponse findCommentById(Long id) {
+        Optional<Comment> comment = commentRepository.findById(id);
+        if (comment.isPresent()) {
+            List<Comment> singleCommentList = new ArrayList<>();
+            singleCommentList.add(comment.get());
+            return commentDto.mapToCommentResponse(singleCommentList);
+        } else {
+            throw new ResourceNotFoundException("Comment", "id", id);
+        }
+    }
+
     public CommentResponse deleteComment(Long id) {
         commentRepository.deleteById(Long.valueOf(id));
         return findAllComments();
@@ -51,7 +64,6 @@ public class CommentService {
         } else {
             return deleteComment(id);
         }
-//        commentRepository.deleteById(Long.valueOf(id));
-//        return findAllComments();
+
     }
 }

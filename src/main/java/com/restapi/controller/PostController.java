@@ -5,7 +5,6 @@ import com.restapi.request.PostRequest;
 import com.restapi.response.PostResponse;
 import com.restapi.response.common.APIResponse;
 import com.restapi.service.PostService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/post")
@@ -24,16 +22,9 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-//    @PostMapping
-//    public ResponseEntity<APIResponse> createPost(@Valid @RequestBody PostRequest postRequest) {
-//        apiResponse.setData(postService.createPost(postRequest));
-//        apiResponse.setStatus(HttpStatus.OK.value());
-//        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-//    }
-
     @PostMapping
     public ResponseEntity<APIResponse> createPost(@Valid @RequestBody PostRequest postRequest) {
-//        System.out.println("Received PostRequest: " + postRequest);
+        postRequest.setUser_id(postRequest.getUser_id());
         apiResponse.setData(postService.createPost(postRequest));
         apiResponse.setStatus(HttpStatus.OK.value());
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
@@ -41,10 +32,19 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<APIResponse> getPostById() {
+    public ResponseEntity<APIResponse> getPostByName() {
         PostResponse response = postService.findAllPosts();
         APIResponse apiResponse = new APIResponse();
-        apiResponse.setData(response.getPosts());
+        apiResponse.setData(response);
+        apiResponse.setStatus(HttpStatus.OK.value());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<APIResponse> getPostById(@PathVariable Long id) {
+        System.out.println("Fetching post by ID: " + id);
+        apiResponse.setData(postService.findPostById(id));
+        System.out.println("Response retrieved successfully: " + apiResponse);
         apiResponse.setStatus(HttpStatus.OK.value());
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }

@@ -11,8 +11,8 @@ import java.util.Optional;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query("select p from Post p inner join p.appUser a where a.id=?1")
-    Optional<Post> findById(Long id);
+    //    @Query("select p from Post p inner join p.appUser a where a.id=?1")
+    //    Optional<Post> findById(Long id);
 
 
 

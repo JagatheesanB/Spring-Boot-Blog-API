@@ -17,7 +17,6 @@ public class CommentResponse {
     public CommentResponse() {
     }
 
-
     public void setComments(List<CommentResponse> comments) {
         this.comments = comments;
     }
@@ -25,12 +24,13 @@ public class CommentResponse {
     private Long id;
     private String comment;
     private Long user_id;
-    private Long post_id;
+//    private Long post_id;
 
-    public CommentResponse(Long id, String comment) {
+    public CommentResponse(Long id, String comment, Long user_id) {
         this.id = id;
         this.comment = comment;
-//        this.user_id = user_id;
+        this.user_id = user_id;
 //        this.post_id = post_id;
     }
+
 }

@@ -25,4 +25,5 @@ public class CommentRequest {
     private Long user_id;
     private Long post_id;
 
+
 }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -13,23 +15,22 @@ import java.util.List;
 @NoArgsConstructor
 public class PostResponse {
 
-    //    List<PostResponse> posts = new ArrayList<>();
-//    public PostResponse(Long id, String title, String content) {
-//
-//    }
-//    public void setPost(List<Map<String, Object>> formattedPosts) {
-//
-//    }
     private List<PostResponse> posts;
 
     private Long id;
     private String title;
     private String content;
+    private String role;
 
-    public PostResponse(Long id, String title, String content) {
+    private Long user_id;
+
+    public PostResponse(Long id, String title, String content,Long user_id) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.user_id = user_id;
     }
 
+
 }
+

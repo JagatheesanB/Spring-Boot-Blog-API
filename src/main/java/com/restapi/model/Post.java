@@ -36,7 +36,12 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
+    private boolean present;
+
+
+
 }
